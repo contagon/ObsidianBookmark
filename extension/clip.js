@@ -7,7 +7,7 @@
     `## [{title}]({url})
     Clipped from {host} on {date}.
 
-## {clip}`
+{clip}`
     
         var noteFormat = defaultNoteFormat
         var sel = rangy.getSelection().toHtml();
@@ -41,7 +41,7 @@
             imageLinks:imageLinks
         }
         console.log(bookmark)
-        fetch('http://localhost:43110/new',{
+        fetchResource('http://localhost:43110/new',{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -51,9 +51,28 @@
 
 })();
 
+// Workaround for fetching mixed content
+// See here: https://stackoverflow.com/questions/55214828/how-to-stop-corb-from-blocking-requests-to-data-resources-that-respond-with-cors/55215898#55215898
+function fetchResource(input, init) {
+    return new Promise((resolve, reject) => {
+      chrome.runtime.sendMessage({input, init}, messageResponse => {
+        const [response, error] = messageResponse;
+        if (response === null) {
+          reject(error);
+        } else {
+          // Use undefined on a 204 - No Content
+          const body = response.body ? new Blob([response.body]) : undefined;
+          resolve(new Response(body, {
+            status: response.status,
+            statusText: response.statusText,
+          }));
+        }
+      });
+    });
+  }
 
 function dateString(){
     let rawDate = new Date()
-    let filename = ""+rawDate.getFullYear()+(rawDate.getMonth()+1)+rawDate.getDate()+rawDate.getHours()+rawDate.getMinutes()+"  "
+    let filename = ""+rawDate.getFullYear().toString().substr(-2)+"."+(rawDate.getMonth()+1)+"."+rawDate.getDate()+"."+rawDate.getHours()+" - "
     return(filename)
 }
