@@ -1,0 +1,13 @@
+---
+version: "2.1"
+services:
+  obsidian-bookmark:
+    build: .
+    image: obsidian-bookmark
+    container_name: obsidian-bookmark
+    volumes:
+        - ../notes/WebClips:/notes
+        - ../notes/Attachments:/attachments
+    ports:
+        - 43110:43110
+    restart: unless-stopped
