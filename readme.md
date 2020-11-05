@@ -1,3 +1,5 @@
+This is a fork to run the server headless in a docker container. I currently sync all my obsidian notes to a server using Syncthing, and run this on the server as well. This way I can use this on any device with chrome installed, and only have to have the server running once.
+
 # **![logo](extension/icons/favicon-48x48.png) Obsidian Bookmark**
 
 ![Screencap](docs/sceencap1.gif)
@@ -20,19 +22,17 @@ Inspired by jplattel's [Obsidian clipper](https://github.com/jplattel/obsidian-c
 
 ## Installation:
 ---
-**For Mac or Linux, clone this repo and, in the server folder, run `npm install .` then `electron-packager .`. This will automatically crete a binary for your platform and architechture**
+Clone the repo.
 
-Download both .rar archives from [Releases](https://github.com/Liamballin/ObsidianBookmark/releases/tag/0.0.1) page.
+Chrome extension:
+Change "http://localhost:43110/" in `extension/clip.js` and `extension/background.js` to wherever your server will be hosted at. Open chrome://extensions and turn on Developer mode in the top right. Select load unpacked and choose the extension folder.
 
-Extract files
-#### Chrome extension:
-Open chrome://extensions and turn on Developer mode in the top right.
-Select load unpacked and choose the extension folder.
-
-#### Server:
-Once the folder is extracted from the archive, running obsidian-bookmark.exe will launch the server.
-Choose a location for the vault root file and save location if different (Specific folder for web bookmarks)
-
+Server:
+There's a folder for notes and attachments that need to be mapped to. Navigate into the repo, then an example docker command would be:
+```bash
+docker build . -t obsidian-bookmark
+docker run -p 43110:43100 -v vault/webclips:/notes -v vault/attachments:/attachments obsidian-bookmark
+```
  
 
 ## Usage
