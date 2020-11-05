@@ -73,6 +73,9 @@ function fetchResource(input, init) {
 
 function dateString(){
     let rawDate = new Date()
-    let filename = ""+rawDate.getFullYear().toString().substr(-2)+"."+(rawDate.getMonth()+1)+"."+rawDate.getDate()+"."+rawDate.getHours()+" - "
+    let filename = ""+rawDate.getFullYear().toString().substr(-2)
+                    +"."+('0' + (rawDate.getMonth()+1)).slice(-2)
+                    +"."+('0' + rawDate.getDate()).slice(-2)
+                    +"."+('0' + rawDate.getHours())+" - "
     return(filename)
 }
