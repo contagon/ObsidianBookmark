@@ -1,8 +1,8 @@
 {
   "close_to_tray": true,
   "port": "43110",
-  "vault_location": "C:\\Users\\Liam\\Desktop\\obsidianClip\\vault",
-  "save_location": "C:\\Users\\Liam\\Desktop\\obsidianClip\\vault\\ImageTest",
-  "attatchment_location":"C:\\Users\\Liam\\Desktop\\obsidianClip\\vault\\attatchments",
-  "download_images":true
+  "vault_location": "/vault",
+  "save_location": "/notes",
+  "attatchment_location": "/attachments",
+  "download_images": true
 }
